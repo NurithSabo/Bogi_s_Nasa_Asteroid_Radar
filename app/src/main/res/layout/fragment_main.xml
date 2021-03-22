@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <data>
+            <variable
+                name="viewModel"
+                type="com.udacity.asteroidradar.main.MainViewModel" />
+        </data>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/app_background">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:fitsSystemWindows="true"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/activity_main_image_of_the_day_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMargin="@dimen/cardview_default_radius"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap">
+
+                <ImageView
+                    android:id="@+id/activity_main_image_of_the_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="center"
+                    app:layout_collapseMode="pin"
+                    app:srcCompat="@drawable/placeholder_picture_of_day"
+                    app:loadImgOfTheDay="@{viewModel.picOfTheDay.url.toString()}"
+                    android:contentDescription="@{@string/apod_description(viewModel.picOfTheDay.title.toString())}"
+                    android:onClick="@{view -> viewModel.navigateToAllPageImage(view)}"/>
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:layout_gravity="bottom"
+                    android:background="#55010613"
+                    android:text= "@{viewModel.picOfTheDay.title.toString()}"
+                    android:contentDescription="@{viewModel.picOfTheDay.title.toString()}"/>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/asteroid_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:listData="@{viewModel.asteroids}"
+                tools:listitem="@layout/asteroid_recycler"/>
+
+
+            <ProgressBar
+                android:id="@+id/status_loading_wheel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone"
+                android:gravity="center"
+                android:layout_gravity="center"
+                app:status="@{viewModel.status}"/>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </layout>

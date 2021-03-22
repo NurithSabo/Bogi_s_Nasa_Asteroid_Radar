@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="asteroid"
+            type="com.udacity.asteroidradar.Asteroid" />
+        <variable
+            name="viewModel"
+            type="com.udacity.asteroidradar.main.MainViewModel" />
+    </data>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/app_background"
+            android:padding="20dp">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:fitsSystemWindows="true"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/activity_main_image_of_the_day_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMargin="@dimen/cardview_default_radius"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap">
+
+        <ImageView
+            android:id="@+id/activity_main_image_of_the_day"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxHeight="220dp"
+            android:adjustViewBounds="true"
+            app:layout_collapseMode="pin"
+            android:scaleType="fitCenter"
+            app:asteroidStatusImage="@{asteroid.potentiallyHazardous}"
+            android:contentDescription="@string/not_hazardous_asteroid_image"
+            tools:srcCompat="@drawable/asteroid_safe" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:textColor="@color/primaryTextColor">
+
+                <LinearLayout
+                    style="@style/linear_layout_detail_view">
+
+                    <TextView
+                        android:text="@string/close_approach_data_title"
+                        style="@style/textview_detail_view"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/close_approach_date"
+                        style="@style/textview_detail_view"
+                        android:text="@{asteroid.closeApproachDate}"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_layout_detail_view"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/textview_detail_view"
+                            android:textStyle="bold"
+                            android:text="@string/absolute_magnitude_title" />
+
+                        <TextView
+                            android:id="@+id/absolute_magnitude"
+                            style="@style/textview_detail_view"
+                            app:astronomicalUnitText="@{asteroid.absoluteMagnitude}"
+                            tools:text="25.126 au" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/help_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        app:srcCompat="@drawable/ic_help_circle"
+                        android:contentDescription="@string/astronomical_unit_explanation_button"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/linear_layout_detail_view">
+                <TextView
+                    style="@style/textview_detail_view"
+                    android:text="@string/estimated_diameter_title"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/estimated_diameter"
+                    style="@style/textview_detail_view"
+                    app:kmUnitText="@{asteroid.estimatedDiameter}"
+                    tools:text="0.82 km" />
+    </LinearLayout>
+                <LinearLayout
+                    style="@style/linear_layout_detail_view">
+                <TextView
+                    style="@style/textview_detail_view"
+                    android:text="@string/relative_velocity_title"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/relative_velocity"
+                    style="@style/textview_detail_view"
+                    app:velocityText="@{asteroid.relativeVelocity}" />
+    </LinearLayout>
+                <LinearLayout
+                    style="@style/linear_layout_detail_view">
+                <TextView
+                    style="@style/textview_detail_view"
+                    android:text="@string/distance_from_earth_title"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/distance_from_earth"
+                    style="@style/textview_detail_view"
+                    app:astronomicalUnitText="@{asteroid.distanceFromEarth}"/>
+    </LinearLayout>
+            </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
